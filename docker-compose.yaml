@@ -19,7 +19,7 @@ services:
       - "3306:3306"
 
   expense-tracker:
-    image: hardik230900/expense-tracker:v1
+    image: hardik230900/expense-tracker:v2
 
     ports:
       - "8080:8080"
