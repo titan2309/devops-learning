@@ -8,6 +8,13 @@ services:
       MYSQL_ROOT_PASSWORD: root
       MYSQL_DATABASE: expense_db
 
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+      start_period: 30s
+
     ports:
       - "3306:3306"
 
@@ -18,7 +25,8 @@ services:
       - "8080:8080"
 
     depends_on:
-      - mysql
+      mysql:
+        condition: service_healthy
 
     environment:
       DB_URL: jdbc:mysql://mysql:3306/expense_db
